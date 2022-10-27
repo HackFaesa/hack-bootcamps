@@ -1,2 +1,5 @@
-# hack-bootcamps
-Collections of prototypes created in bootcamps
+# Bootcamps de Prototipacão Hackfaesa
+
+Lista de projetos criados nos bootcamps
+
+
