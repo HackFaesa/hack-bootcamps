@@ -1,7 +1,7 @@
+import '../models/student_list_model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import 'controllers/student_controller.dart';
 import 'views/home_view.dart';
 
 void main() => runApp(const MyApp());
@@ -13,7 +13,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider(create: (_) => StudentController()),
+        ChangeNotifierProvider(create: (_) => StudentListModel()),
       ],
       child: MaterialApp(
         title: 'Bootcamp 2022 Project',

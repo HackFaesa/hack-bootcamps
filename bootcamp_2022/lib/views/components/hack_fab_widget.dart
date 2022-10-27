@@ -1,3 +1,4 @@
+import 'package:bootcamp_2022/models/student_list_model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -12,7 +13,9 @@ class HackFabWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<StudentController>(builder: (context, controller, child) {
+    return Consumer<StudentListModel>(builder: (context, model, child) {
+      var controller = StudentController();
+
       const shape = RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
       );
@@ -21,12 +24,12 @@ class HackFabWidget extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
           Visibility(
-            visible: controller.isButtonVisible(),
+            visible: controller.isButtonVisible(model),
             child: FloatingActionButton(
               backgroundColor: AppTheme.secondary,
               child: Icon(Icons.card_giftcard, color: AppTheme.white),
               onPressed: () {
-                StudentModel student = controller.getRandomStudent();
+                StudentModel student = controller.getRandomStudent(model);
                 showModalBottomSheet(
                   context: context,
                   shape: shape,

@@ -1,38 +1,16 @@
-
 import 'dart:math';
 
-import 'package:flutter/widgets.dart';
-
+import '../models/student_list_model.dart';
 import '../models/student_model.dart';
 
-
-class StudentController extends ChangeNotifier {
-  List<StudentModel> _studentsList = [];
-
-  List<StudentModel> get studentsList => _studentsList;
-
-  set newStudentList(List<StudentModel> list) {
-    _studentsList = list;
-    notifyListeners();
-  }
-
-  set addStudent(StudentModel student) {
-    _studentsList.add(student);
-    notifyListeners();
-  }
-
-  set removeStudent(StudentModel student) {
-    _studentsList.removeWhere((value) => student.id == value.id);
-    notifyListeners();
-  }
-
-  void createStudent(String name, String course) {
+class StudentController {
+  void createStudent(String name, String course, StudentListModel model) {
     StudentModel newStudent = StudentModel.create(name: name, course: course);
-    addStudent = newStudent;
+    model.addStudent = newStudent;
   }
 
-  StudentModel getRandomStudent() {
-    List<StudentModel> notWinnersList = studentsList.where((student) => !student.isWinner).toList();
+  StudentModel getRandomStudent(StudentListModel model) {
+    List<StudentModel> notWinnersList = model.lst.where((student) => !student.isWinner).toList();
 
     int maxNumber = notWinnersList.length;
     int index = Random().nextInt(maxNumber);
@@ -40,15 +18,15 @@ class StudentController extends ChangeNotifier {
     StudentModel studentChoosed = notWinnersList[index];
     StudentModel studentWinner = StudentModel.updateAsWinner(studentChoosed);
 
-    removeStudent = studentChoosed;
-    addStudent = studentWinner;
+    model.removeStudent = studentChoosed;
+    model.addStudent = studentWinner;
 
     return studentWinner;
   }
 
-  bool isButtonVisible() {
-    bool hasList = _studentsList.isNotEmpty;
-    bool isAllWinners = _studentsList.every((student) => student.isWinner);
+  bool isButtonVisible(StudentListModel model) {
+    bool hasList = model.lst.isNotEmpty;
+    bool isAllWinners = model.lst.every((student) => student.isWinner);
     return hasList && !isAllWinners;
   }
 }

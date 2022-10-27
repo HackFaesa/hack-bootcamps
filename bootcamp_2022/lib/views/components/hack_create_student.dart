@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 
 import '../../controllers/student_controller.dart';
 import '../../main.dart';
+import '../../models/student_list_model.dart';
 
 class HackCreateStudent extends StatefulWidget {
   const HackCreateStudent({super.key});
@@ -54,11 +55,13 @@ class _HackCreateStudentState extends State<HackCreateStudent> {
               },
             ),
           ),
-          Consumer<StudentController>(builder: (context, controller, child) {
+          Consumer<StudentListModel>(builder: (context, model, child) {
             return ElevatedButton(
               onPressed: () {
                 if (newStudentName.isNotEmpty && newStudentCourse.isNotEmpty) {
-                  controller.createStudent(newStudentName, newStudentCourse);
+                  var controller = StudentController();
+
+                  controller.createStudent(newStudentName, newStudentCourse, model);
                   Navigator.pop(context);
                 }
               },

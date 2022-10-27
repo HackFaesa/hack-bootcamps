@@ -1,7 +1,7 @@
+import '../../models/student_list_model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../controllers/student_controller.dart';
 import '../../main.dart';
 import '../../models/student_model.dart';
 
@@ -10,19 +10,17 @@ class HackStudentsListWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<StudentController>(builder: (context, controller, child) {
-      var lst = controller.studentsList;
-
-      if (lst.isEmpty) {
+    return Consumer<StudentListModel>(builder: (context, model, child) {
+      if (model.lst.isEmpty) {
         return Center(
           child: Text('No Students', style: AppTheme.styleTitle2),
         );
       }
 
       return ListView.builder(
-        itemCount: lst.length,
+        itemCount: model.lst.length,
         itemBuilder: (BuildContext context, int index) {
-          StudentModel student = lst[index];
+          StudentModel student = model.lst[index];
           return Card(
             color: AppTheme.white,
             elevation: 5.0,
